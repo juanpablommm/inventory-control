@@ -1,0 +1,7 @@
+/gradlew text eol=lf
+*.bat text eol=crlf
+*.jar binary
+*.sql filter=git-crypt diff=git-crypt
+*.db filter=git-crypt diff=git-crypt
+src/main/resources/*.yml filter=git-crypt diff=git-crypt
+src/main/resources/*.sql filter=git-crypt diff=git-crypt
