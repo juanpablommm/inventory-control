@@ -1,4 +1,4 @@
-package com.jdn.varieties.inventory_control.users.api;
+package com.jdn.varieties.inventory_control.users.infrastructure;
 
 import com.jdn.varieties.inventory_control.users.application.dto.AuthRequestPasswordDto;
 import com.jdn.varieties.inventory_control.users.application.dto.AuthResponseDto;

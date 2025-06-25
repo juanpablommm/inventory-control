@@ -20,10 +20,10 @@ public class CommandHandlerLogin {
 	public AuthResponseDto authentication(AuthRequestPasswordDto authRequestPasswordDto) {
 		final UserDomain userDomain = this.authWithPasswordAndUsername.authentication(authRequestPasswordDto.username(),
 				authRequestPasswordDto.password());
-		final String accessToken = this.createAccessTokenJwt.createJWtToken(userDomain.getEmail(),
-				List.of(userDomain.getRole()));
+		final String accessToken = this.createAccessTokenJwt.createJWtToken(userDomain.email(),
+				List.of(userDomain.role()));
 		final String refreshToken = String.valueOf(UUID.randomUUID());
-		this.userRepository.createRefreshTokenFromUser(userDomain.getUsername(), refreshToken);
+		this.userRepository.createRefreshTokenFromUser(userDomain.username(), refreshToken);
 		return AuthResponseDto.builder().accessToken(accessToken).token(refreshToken).build();
 	}
 }

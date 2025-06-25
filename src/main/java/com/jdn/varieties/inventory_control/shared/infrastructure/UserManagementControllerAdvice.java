@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
@@ -23,6 +24,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 @Slf4j
 public class UserManagementControllerAdvice extends ResponseEntityExceptionHandler {
+
+	@ExceptionHandler(InventoryApplicationException.class)
+	public final ResponseEntity<ApplicationErrorMessage> handlerInventoryApplicationException(InventoryApplicationException exception) {
+		log.error("Internal error: {}", exception.getTechnicalMessage());
+		return ResponseEntity.status(exception.getHttpStatus().value())
+				.body(new ApplicationErrorMessage(exception.getResponseMessage()));
+	}
 
 	@ExceptionHandler(JwtManagementException.class)
 	public final ResponseEntity<String> handlerJwtManagementException(JwtManagementException exception) {
@@ -68,4 +76,6 @@ public class UserManagementControllerAdvice extends ResponseEntityExceptionHandl
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal error - NullPointerException");
 	}
 
+
+	public record ApplicationErrorMessage(String message){}
 }
